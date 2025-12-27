@@ -32,7 +32,7 @@ public class Evaluation extends DPlugin {
 
     public void onEnable() {
         PluginUtil.addPlugin(plugin, 28442);
-        items = (new DInventory("감정 아이템 설정", 54, true, true, plugin)).deserialize(plugin.config);
+        items = (new DInventory(Evaluation.plugin.getLang().get("evaluation_item_settings_title"), 54, true, true, plugin)).deserialize(plugin.config);
         getCommand("dpev").setExecutor((new DPEVCommand()).getBuilder());
         getServer().getPluginManager().registerEvents(new DPEVEvent(), plugin);
     }

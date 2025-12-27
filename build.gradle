@@ -7,7 +7,7 @@ group 'com.darksoldier1404'
 
 // ##################################################
 
-version = '1.1.1'
+version = '1.2.0'
 var pluginName = 'DP-Evaluation'
 var packageName = 'com.darksoldier1404.dpev'
 var apiVersion = '1.20.1'

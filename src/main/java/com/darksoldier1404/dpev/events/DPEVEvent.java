@@ -24,7 +24,7 @@ public class DPEVEvent implements Listener {
                 if (inv.isValidHandler(Evaluation.plugin)) {
                     if (inv.isValidChannel(1)) {
                         DPEVFunction.saveItems(inv);
-                        p.sendMessage("§a아이템 설정이 저장되었습니다.");
+                        p.sendMessage(Evaluation.plugin.getLang().get("item_settings_saved"));
                         return;
                     }
 
@@ -61,18 +61,15 @@ public class DPEVEvent implements Listener {
                     if (inv.getItem(13) != null) {
                         return;
                     }
-
                     item = e.getCurrentItem();
                     if (item != null && !item.getType().isAir()) {
-                        item = item.clone();
+                        ItemStack sel = item.clone();
                         item.setAmount(item.getAmount() - 1);
                         e.setCurrentItem(item);
-                        item.setAmount(1);
-                        inv.setItem(13, item);
+                        sel.setAmount(1);
+                        inv.setItem(13, sel);
                         inv.applyChanges();
-                        return;
                     }
-
                     return;
                 }
             }
@@ -132,7 +129,7 @@ public class DPEVEvent implements Listener {
                     if (inv.isValidChannel(2)) {
                         p.closeInventory();
                         Evaluation.currentEdit.put(p.getUniqueId(), Tuple.of(e.getSlot(), inv));
-                        p.sendMessage("채팅으로 가격을 설정 해주세요. : MIN-MAX");
+                        p.sendMessage(Evaluation.plugin.getLang().get("set_price_via_chat"));
                     }
                 }
             }

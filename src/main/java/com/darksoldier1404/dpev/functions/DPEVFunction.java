@@ -20,7 +20,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class DPEVFunction {
     public static void editItems(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("§c플레이어만 사용 가능한 명령어입니다.");
+            sender.sendMessage(Evaluation.plugin.getLang().get("only_player_command"));
         } else {
             Player p = (Player)sender;
             Evaluation.items.setChannel(1);
@@ -30,7 +30,7 @@ public class DPEVFunction {
 
     public static void editPrice(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("§c플레이어만 사용 가능한 명령어입니다.");
+            sender.sendMessage(Evaluation.plugin.getLang().get("only_player_command"));
         } else {
             Player p = (Player)sender;
             Evaluation.items.setChannel(2);
@@ -57,7 +57,7 @@ public class DPEVFunction {
     }
 
     public static void openEvaluationGUI(Player p) {
-        DInventory inv = new DInventory("감정", 27, Evaluation.plugin);
+        DInventory inv = new DInventory(Evaluation.plugin.getLang().get("evaluation_title"), 27, Evaluation.plugin);
         inv.setChannel(101);
         ItemStack pane = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = pane.getItemMeta();
@@ -72,7 +72,7 @@ public class DPEVFunction {
 
         ItemStack confirm = new ItemStack(Material.ANVIL);
         ItemMeta im = confirm.getItemMeta();
-        im.setDisplayName("§a감정하기");
+        im.setDisplayName(Evaluation.plugin.getLang().get("evaluate_button"));
         im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         confirm.setItemMeta(im);
         confirm = NBT.setStringTag(confirm, "dpevs_confirm", "true");
@@ -85,13 +85,13 @@ public class DPEVFunction {
     public static void evaluateItem(Player p, ItemStack item) {
         if (item != null && !item.getType().isAir()) {
             if (NBT.hasTagKey(item, "dpevs_price")) {
-                p.sendMessage("§c이미 감정된 아이템입니다.");
+                p.sendMessage(Evaluation.plugin.getLang().get("already_evaluated_item"));
             } else {
                 int price = getRandomPrice(item);
                 if (price <= 0) {
-                    p.sendMessage("§c해당 아이템은 감정할 수 없습니다.");
+                    p.sendMessage(Evaluation.plugin.getLang().get("item_not_evaluatable"));
                 } else {
-                    p.sendMessage("§a아이템 감정이 완료되었습니다. 가격: §e" + price + "원");
+                    p.sendMessage(Evaluation.plugin.getLang().getWithArgs("evaluation_complete_with_price", String.valueOf(price)));
                     ItemMeta meta = item.getItemMeta();
                     List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList();
                     lore.add("§e감정가 : §e" + price + "원");
@@ -102,7 +102,7 @@ public class DPEVFunction {
 
             }
         } else {
-            p.sendMessage("§c감정할 아이템을 빈칸에 넣어주세요.");
+            p.sendMessage(Evaluation.plugin.getLang().get("put_item_in_slot"));
         }
     }
 
@@ -136,7 +136,7 @@ public class DPEVFunction {
     }
 
     public static void openSellGUI(Player p) {
-        DInventory inv = new DInventory("아이템 판매", 54, Evaluation.plugin);
+        DInventory inv = new DInventory(Evaluation.plugin.getLang().get("item_sell_title"), 54, Evaluation.plugin);
         inv.setChannel(102);
         ItemStack pane = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = pane.getItemMeta();
@@ -151,7 +151,7 @@ public class DPEVFunction {
 
         ItemStack confirm = new ItemStack(Material.EMERALD);
         ItemMeta im = confirm.getItemMeta();
-        im.setDisplayName("§a판매하기");
+        im.setDisplayName(Evaluation.plugin.getLang().get("sell_button"));
         im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         confirm.setItemMeta(im);
         confirm = NBT.setStringTag(confirm, "dpevs_sell", "true");
@@ -173,7 +173,7 @@ public class DPEVFunction {
         }
 
         if (toSell.isEmpty()) {
-            p.sendMessage("§c판매할 아이템이 없습니다.");
+            p.sendMessage(Evaluation.plugin.getLang().get("no_items_to_sell"));
         } else {
             int totalPrice = 0;
 
@@ -188,7 +188,7 @@ public class DPEVFunction {
                 i.setAmount(0);
             });
             inv.applyChanges();
-            p.sendMessage("§a아이템 판매가 완료되었습니다. 총 판매 금액: §e" + totalPrice + "원");
+            p.sendMessage(Evaluation.plugin.getLang().getWithArgs("sell_complete_with_total", String.valueOf(totalPrice)));
         }
     }
 

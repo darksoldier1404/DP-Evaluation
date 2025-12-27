@@ -10,16 +10,16 @@ public class DPEVCommand {
 
     public DPEVCommand() {
         this.builder = new CommandBuilder(Evaluation.plugin);
-        this.builder.addSubCommand("reload", "dpev.admin", "/dpev reload", false, (p, args) -> {
+        this.builder.addSubCommand("reload", "dpev.admin", Evaluation.plugin.getLang().get("command_reload_description"), false, (p, args) -> {
             if (args.length == 1) {
                 Evaluation.plugin.reload();
-                p.sendMessage(Evaluation.plugin.getPrefix() + "§a플러그인 설정이 리로드되었습니다.");
+                p.sendMessage(Evaluation.plugin.getPrefix() + Evaluation.plugin.getLang().get("plugin_reload_success"));
                 return true;
             } else {
                 return false;
             }
         });
-        this.builder.addSubCommand("items", "dpev.admin", "/dpev items", false, (p, args) -> {
+        this.builder.addSubCommand("items", "dpev.admin", Evaluation.plugin.getLang().get("command_items_description"), false, (p, args) -> {
             if (args.length == 1) {
                 DPEVFunction.editItems(p);
                 return true;
@@ -27,7 +27,7 @@ public class DPEVCommand {
                 return false;
             }
         });
-        this.builder.addSubCommand("price", "dpev.admin", "/dpev price", true, (p, args) -> {
+        this.builder.addSubCommand("price", "dpev.admin", Evaluation.plugin.getLang().get("command_price_description"), true, (p, args) -> {
             if (args.length == 1) {
                 DPEVFunction.editPrice(p);
                 return true;
@@ -35,7 +35,7 @@ public class DPEVCommand {
                 return false;
             }
         });
-        this.builder.addSubCommand("evaluate", "/dpev evaluate", true, (p, args) -> {
+        this.builder.addSubCommand("evaluate", Evaluation.plugin.getLang().get("command_evaluate_description"), true, (p, args) -> {
             if (args.length == 1) {
                 DPEVFunction.openEvaluationGUI((Player)p);
                 return true;
@@ -43,7 +43,7 @@ public class DPEVCommand {
                 return false;
             }
         });
-        this.builder.addSubCommand("sell", "/dpev sell", true, (p, args) -> {
+        this.builder.addSubCommand("sell", Evaluation.plugin.getLang().get("command_sell_description"), true, (p, args) -> {
             if (args.length == 1) {
                 DPEVFunction.openSellGUI((Player)p);
                 return true;
